@@ -30,13 +30,17 @@ public class VerFotos extends AppCompatActivity {
         File fotos[] = ruta.listFiles();
 
 
-        Bitmap myBitmap = BitmapFactory.decodeFile(fotos[0].getAbsolutePath());
+        Bitmap myBitmap1 = BitmapFactory.decodeFile(fotos[0].getAbsolutePath());
+        Bitmap myBitmap2 = BitmapFactory.decodeFile(fotos[1].getAbsolutePath());
+        Bitmap myBitmap3 = BitmapFactory.decodeFile(fotos[2].getAbsolutePath());
+        Bitmap myBitmap4 = BitmapFactory.decodeFile(fotos[3].getAbsolutePath());
+        Bitmap myBitmap5 = BitmapFactory.decodeFile(fotos[4].getAbsolutePath());
 
-        listaFotos.add(new Fotos(myBitmap, fotos[0].getAbsolutePath().split("Pictures/")[1]));
-        listaFotos.add(new Fotos(myBitmap, fotos[1].getAbsolutePath().split("Pictures/")[1]));
-        listaFotos.add(new Fotos(myBitmap, fotos[2].getAbsolutePath().split("Pictures/")[1]));
-        listaFotos.add(new Fotos(myBitmap, fotos[3].getAbsolutePath().split("Pictures/")[1]));
-        listaFotos.add(new Fotos(myBitmap, fotos[4].getAbsolutePath().split("Pictures/")[1]));
+        listaFotos.add(new Fotos(myBitmap1, fotos[0].getAbsolutePath().split("Pictures/")[1]));
+        listaFotos.add(new Fotos(myBitmap2, fotos[1].getAbsolutePath().split("Pictures/")[1]));
+        listaFotos.add(new Fotos(myBitmap3, fotos[2].getAbsolutePath().split("Pictures/")[1]));
+        listaFotos.add(new Fotos(myBitmap4, fotos[3].getAbsolutePath().split("Pictures/")[1]));
+        listaFotos.add(new Fotos(myBitmap5, fotos[4].getAbsolutePath().split("Pictures/")[1]));
 
         myRecyclerView = findViewById(R.id.myRecyclerView);
         adaptador = new AdaptadorDatos(listaFotos, this);
