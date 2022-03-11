@@ -6,12 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -28,17 +34,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnTomar;
+    Button btnTomarGabriel, btnTomarJuan, btnVerFotosGabriel, btnVerFotosJuan;
     Button btnGuardar;
     ImageView imagen;
+    String dueno = "";
 
     private static final int REQUEST_PERMISSION_CAMERA = 100; //detectar la respuesta del usuario si es OK
     private static final int TAKE_PICTURE = 101; //detecta si se tomo la foto con la camara del celular
@@ -52,24 +59,57 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnTomar = findViewById(R.id.btnTomar);
+        btnTomarGabriel = findViewById(R.id.btnTomarGabriel);
+        btnTomarJuan = findViewById(R.id.btnTomarJuan);
         btnGuardar = findViewById(R.id.btnGuardar);
         imagen = findViewById(R.id.imageView);
 
-        btnTomar.setOnClickListener(new View.OnClickListener() {
+        btnVerFotosGabriel = findViewById(R.id.btnVerFotosGabriel);
+        btnVerFotosJuan = findViewById(R.id.btnVerFotosJuan);
+
+        //PERMISOS GABRIEL
+        ////////////////////////////////
+        btnTomarGabriel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dueno = "gabriel";
                 permisosCamara();
             }
         });
+        ////////////////////////////////
+        //PERMISOS GABRIEL
 
+        //PERMISOS JUAN
+        ////////////////////////////////
+        btnTomarJuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dueno = "juan";
+                permisosCamara();
+            }
+        });
+        ////////////////////////////////
+        //PERMISOS JUAN
+
+        //PERMISOS DE ALMACENAMIENTO GENERAL
+        ////////////////////////////////
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 permisosAlmacenamiento();
             }
         });
+        ////////////////////////////////
+        //PERMISOS DE ALMACENAMIENTO GENERAL
+
+
     }
+
+    public void cargarFotos(View view){
+        Intent intent = new Intent(getApplicationContext(), VerFotos.class);
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -122,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     guardarFoto();
                 }
                 else{
-                    //api > 28 (Q)
+                    //api < 28 (Q)
                     ActivityCompat.requestPermissions(
                             this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -154,10 +194,11 @@ public class MainActivity extends AppCompatActivity {
             ContentResolver resolver = getContentResolver(); //para manejar los values
             ContentValues values = new ContentValues(); //metadatos de imagenes tipo, render, etc
 
-            SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy hh.mm.ss");
             String tiempo = formatter.format(new Date());
 
-            String filename = System.currentTimeMillis() + " " + tiempo;
+            //agrego el dueño de la foto
+            String filename = dueno + "@" + tiempo;
 
             values.put(MediaStore.Images.Media.DISPLAY_NAME, filename);
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
@@ -182,10 +223,11 @@ public class MainActivity extends AppCompatActivity {
         else{ //Apis mas antiguas < 28
             String imageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
 
-            SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy hh.mm.ss");
             String tiempo = formatter.format(new Date());
 
-            String filename = System.currentTimeMillis() + " " + tiempo + ".jpg"; //nombre del archivo
+            //agrego el dueño de la foto
+            String filename = dueno + "@" + tiempo + ".jpg"; //nombre del archivo
 
             file = new File(imageDir, filename);
 
