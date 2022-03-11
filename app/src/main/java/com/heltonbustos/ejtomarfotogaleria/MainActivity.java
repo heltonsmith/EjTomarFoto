@@ -6,18 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageDecoder;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -34,11 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,8 +96,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void cargarFotos(View view){
-        Intent intent = new Intent(getApplicationContext(), VerFotos.class);
+    public void cargarFotosJuan(View view){
+        Intent intent = new Intent(getApplicationContext(), VerFotosJuan.class);
+        startActivity(intent);
+    }
+
+    public void cargarFotosGabriel(View view){
+        Intent intent = new Intent(getApplicationContext(), VerFotosGabriel.class);
         startActivity(intent);
     }
 
