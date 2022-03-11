@@ -234,6 +234,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        boolean saved = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream); //para la calidad y compresión del archivo
+        if (saved){
+            Toast.makeText(this, "Imagen guardada", Toast.LENGTH_SHORT).show();
+        }
+
         if (outputStream != null){
             try {
                 outputStream.flush();
