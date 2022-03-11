@@ -25,6 +25,26 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/myNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/myFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="800dp"
         android:layout_height="2dp"

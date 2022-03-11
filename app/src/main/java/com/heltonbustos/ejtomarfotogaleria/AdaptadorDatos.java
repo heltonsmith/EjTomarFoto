@@ -34,9 +34,14 @@ public class AdaptadorDatos extends RecyclerView.Adapter<AdaptadorDatos.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDator holder, int position) {
         Bitmap bit = listDatos.get(position).getBitmap();
-        String texto = listDatos.get(position).getDes();
+        String des = listDatos.get(position).getDes();
+        String nombre = listDatos.get(position).getNombre();
+        String fecha = listDatos.get(position).getFecha();
+
         holder.imagen.setImageBitmap(bit);
-        holder.des.setText(texto);
+        holder.des.setText(des);
+        holder.nombre.setText(nombre);
+        holder.fecha.setText(fecha);
     }
 
     @Override
@@ -47,11 +52,15 @@ public class AdaptadorDatos extends RecyclerView.Adapter<AdaptadorDatos.ViewHold
     public class ViewHolderDator extends RecyclerView.ViewHolder{
         ImageView imagen;
         TextView des;
+        TextView nombre;
+        TextView fecha;
 
         public ViewHolderDator(@NonNull View itemView) {
             super(itemView);
-            des = itemView.findViewById(R.id.myDes);
             imagen = itemView.findViewById(R.id.myImagen);
+            des = itemView.findViewById(R.id.myDes);
+            nombre = itemView.findViewById(R.id.myNombre);
+            fecha = itemView.findViewById(R.id.myFecha);
         }
     }
 }
